@@ -1,7 +1,7 @@
 -- ==============================================
 -- Airbnb Database Advanced SQL Joins
-
--- Description: Demonstration of INNER JOIN, LEFT JOIN, and FULL OUTER JOIN
+-- 
+-- Description: Demonstration of INNER JOIN, LEFT JOIN, and FULL OUTER JOIN with ORDER BY
 -- ==============================================
 
 -- INNER JOIN: Retrieve all bookings with the users who made them
@@ -18,7 +18,8 @@ SELECT
     bookings.status
 FROM bookings
 INNER JOIN users
-    ON bookings.user_id = users.id;
+    ON bookings.user_id = users.id
+ORDER BY bookings.id ASC;
 
 
 -- LEFT JOIN: Retrieve all properties and their reviews (including properties without reviews)
@@ -33,12 +34,13 @@ SELECT
     reviews.comment
 FROM properties
 LEFT JOIN reviews
-    ON properties.id = reviews.property_id;
+    ON properties.id = reviews.property_id
+ORDER BY properties.id ASC;
 
 
 -- FULL OUTER JOIN: Retrieve all users and bookings (even if a user has no booking OR a booking has no user)
 -- --------------------------------------------------------------
--- If you're using MySQL, you can simulate it with a UNION of LEFT and RIGHT joins.
+
 
 -- Option 1: For PostgreSQL or SQL Server (supports FULL OUTER JOIN)
 SELECT
@@ -52,7 +54,8 @@ SELECT
     bookings.status
 FROM users
 FULL OUTER JOIN bookings
-    ON users.id = bookings.user_id;
+    ON users.id = bookings.user_id
+ORDER BY users.id ASC;
 
 -- Option 2: For MySQL (simulate FULL OUTER JOIN using UNION)
 
@@ -80,4 +83,5 @@ FULL OUTER JOIN bookings
 --     bookings.status
 -- FROM users
 -- RIGHT JOIN bookings
---     ON users.id = bookings.user_id;
+--     ON users.id = bookings.user_id
+-- ORDER BY user_id ASC;
