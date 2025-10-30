@@ -51,3 +51,25 @@ CREATE INDEX idx_bookings_date_range ON bookings(start_date, end_date);
 
 -- After:
 -- EXPLAIN SELECT * FROM bookings WHERE user_id = 10 AND start_date > '2025-01-01';
+
+--  Measure query performance before and after adding indexes
+-- These commands show how the database query plan changes and how fast queries execute.
+
+-- Before adding indexes:
+EXPLAIN ANALYZE
+SELECT *
+FROM bookings
+WHERE user_id = 10
+  AND start_date > '2025-01-01';
+
+-- After adding indexes:
+EXPLAIN ANALYZE
+SELECT *
+FROM bookings
+WHERE user_id = 10
+  AND start_date > '2025-01-01';
+
+
+
+
+
