@@ -1,13 +1,27 @@
-# Airbnb Database Advanced SQL Joins
+# Airbnb Database Subqueries
 
-##  Description
-This directory contains advanced SQL queries demonstrating different types of JOIN operations on the Airbnb clone database schema.
+## 📘 Description
+This directory demonstrates the use of **correlated** and **non-correlated subqueries** in SQL for the Airbnb database.
 
-## Concepts 
-- INNER JOIN: Combines records with matching values in both tables.
-- LEFT JOIN: Returns all records from the left table and matched records from the right table.
-- FULL OUTER JOIN: Returns all records when there is a match in one of the tables.
+## 🧠 Concepts Covered
+- **Non-correlated subquery**: A subquery that runs independently of the outer query.
+- **Correlated subquery**: A subquery that references columns from the outer query.
 
-##  Files
-- `joins_queries.sql` — SQL script with all JOIN queries.
+## 🧩 Files
+- `subqueries.sql` — SQL script with both types of subqueries.
 - `README.md` — Documentation of this task.
+
+## 🧪 Example Queries
+
+### 1️⃣ Non-Correlated Subquery
+Retrieve all properties where the **average rating** is greater than 4.0:
+```sql
+SELECT p.id, p.title, p.location
+FROM properties p
+WHERE p.id IN (
+    SELECT property_id
+    FROM reviews
+    GROUP BY property_id
+    HAVING AVG(rating) > 4.0
+);
+
