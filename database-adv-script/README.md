@@ -1,27 +1,26 @@
-# Airbnb Database Subqueries
+# Airbnb Database – Aggregations and Window Functions
 
-## 📘 Description
-This directory demonstrates the use of **correlated** and **non-correlated subqueries** in SQL for the Airbnb database.
+## Description
+This task demonstrates how to use **aggregation** and **window functions** in SQL to analyze booking data in the Airbnb database.
 
-## 🧠 Concepts Covered
-- **Non-correlated subquery**: A subquery that runs independently of the outer query.
-- **Correlated subquery**: A subquery that references columns from the outer query.
+##  Files
+- `aggregations_and_window_functions.sql` — SQL queries using COUNT(), GROUP BY, and RANK().
+- `README.md` — Documentation explaining each query.
 
-## 🧩 Files
-- `subqueries.sql` — SQL script with both types of subqueries.
-- `README.md` — Documentation of this task.
+## Concepts
+- **Aggregation**: Summarizing data using functions like COUNT, SUM, AVG.
+- **GROUP BY**: Grouping results by columns.
+- **Window Functions**: Performing ranking and analytical operations across query results.
 
-## 🧪 Example Queries
+---
 
-### 1️⃣ Non-Correlated Subquery
-Retrieve all properties where the **average rating** is greater than 4.0:
+### Total Number of Bookings per User
 ```sql
-SELECT p.id, p.title, p.location
-FROM properties p
-WHERE p.id IN (
-    SELECT property_id
-    FROM reviews
-    GROUP BY property_id
-    HAVING AVG(rating) > 4.0
-);
-
+SELECT 
+    u.id AS user_id,
+    u.username,
+    COUNT(b.id) AS total_bookings
+FROM users u
+LEFT JOIN bookings b ON u.id = b.user_id
+GROUP BY u.id, u.username
+ORDER BY total_bookings DESC;
